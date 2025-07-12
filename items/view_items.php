@@ -425,7 +425,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $selected_product) {
     <div class="previous-listings">
         <div class="previous-listings-title">Available Items:</div>
         <div class="listing-cards">
-            <?php var_dump($products); ?>
             <?php foreach ($products as $product): ?>
                 <div class="listing-card" onclick="window.location='items/view_items.php?id=<?= htmlspecialchars($product['item_id']) ?>'">
                     <?php $imgs = getImages($product['images']); ?>

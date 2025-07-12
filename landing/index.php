@@ -289,7 +289,6 @@ if (!$user) {
             <div class="logo">Renewable Cloth</div>
             <div class="auth-links">
                 <a href="../index.php">Home</a>
-                <a href="../items/index.php">Browse</a>
                 <?php if (!$user): ?>
                     <a href="../auth/login.php" class="btn-login">Login</a>
                     <a href="../auth/signup.php" class="btn-signup">Sign Up</a>
@@ -306,7 +305,6 @@ if (!$user) {
             <div class="intro-desc">Discover eco-friendly clothing, swap your wardrobe, and join the movement for a greener planet.</div>
             <div class="cta-buttons">
                 <a href="../items/view_items.php" class="cta-btn cta-main">Start Swapping</a>
-                <a href="../items/index.php" class="cta-btn cta-outline">Browse Items</a>
             </div>
         </div>
         <!-- Carousel Section -->
