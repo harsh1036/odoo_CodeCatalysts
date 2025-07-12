@@ -1,41 +1,95 @@
-# odoo_CodeCatalysts
-**Problem Statement 3:-**
-**ReWear – Community Clothing Exchange**
-**Overview:**
-Develop ReWear, a web-based platform that enables users to exchange unused clothing
-through direct swaps or a point-based redemption system. The goal is to promote sustainable
-fashion and reduce textile waste by encouraging users to reuse wearable garments instead of
-discarding them.
-**Features:**
-**User Authentication**
-Email/password signup and login
-**Landing Page**
-Platform introduction
-Calls-to-action: “Start Swapping”, “Browse Items”, “List an Item”
-Featured items carousel
-**User Dashboard**
-Profile details and points balance
-Uploaded items overview
-Ongoing and completed swaps list
-**Item Detail Page**
-Image gallery and full item description
-Uploader info
-Options: “Swap Request” or “Redeem via Points”
-Item availability status
-**Add New Item Page**
-Upload images
-Enter title, description, category, type, size, condition, and tags
-Submit to list item
-**Admin Role**
-Moderate and approve/reject item listings
-Remove inappropriate or spam items
-Lightweight admin panel for oversight
+# 👚 ReWear – Community Clothing Exchange
 
-Team Name : CodeCatalysts
-Team Members 
-1 Harsh Vora
-2 Priyanshu Rathod
-3 Bhavya Radiya
-4 Riya Patel
+### 🚀 Developed by Team CodeCatalysts
 
-Team Leader email id : harshvora1003@gmail.com
+**A sustainable solution for fashion-conscious communities to exchange unused clothes through a direct swap or point-based system.**
+
+---
+
+## 🌍 Project Overview
+
+**ReWear** is a web-based platform that encourages sustainability in fashion by promoting the reuse of wearable clothing. Users can list unused clothes, browse available items, and either request direct swaps or redeem them using earned points. ReWear helps reduce textile waste by turning closets into opportunities for conscious sharing.
+
+---
+
+## 🔑 Key Features
+
+### ✅ User Authentication
+- Secure email/password signup and login
+- Role-based access for users and admins
+
+### 🏠 Landing Page
+- Introduction to the ReWear concept
+- Call-to-action buttons: 
+  - `Start Swapping`
+  - `Browse Items`
+  - `List an Item`
+- Featured items carousel for popular or latest listings
+
+### 👤 User Dashboard
+- User profile management
+- Points balance tracking
+- My Listings: view and manage uploaded items
+- Swap history: ongoing and completed swaps
+
+### 🧥 Item Detail Page
+- Image gallery and full description of the item
+- Uploader’s information
+- Options to:
+  - Send Swap Request
+  - Redeem via Points
+- Real-time item availability status
+
+### 📤 Add New Item
+- Upload images (multi-image support)
+- Provide details: 
+  - Title, Description
+  - Category, Type, Size, Condition, Tags
+- Submit for listing (goes to admin for approval)
+
+### 🛠️ Admin Panel
+- View and moderate item listings
+- Approve or reject submissions
+- Remove spam or inappropriate content
+- Lightweight interface for quick actions
+
+---
+
+## 🧩 Tech Stack
+
+- **Frontend:** HTML, CSS, JavaScript, Bootstrap
+- **Backend:** PHP (PDO)
+- **Database:** MySQL
+- **Security:** Session Management, SQL Injection Protection
+- **Email:** PHPMailer (SMTP)
+- **Deployment:** Localhost (XAMPP) | Ready for LAMP Stack Hosting
+
+---
+
+## 🧪 Status
+
+✅ MVP Complete  
+✅ CRUD Functionalities  
+✅ Admin Module Ready  
+🔜 Future Enhancements:  
+- Chat feature for swap negotiation  
+- Pickup/Delivery coordination  
+- Mobile responsiveness improvements  
+- Gamified rewards for eco-actions
+
+---
+
+## 👥 Team CodeCatalysts
+
+| Name              | Role             |
+|-------------------|------------------|
+| **Harsh Vora**    | Team Leader, Backend Developer |
+| Priyanshu Rathod  | Frontend Developer |
+| Bhavya Radiya     | UI/UX Designer |
+| Riya Patel        | QA & Documentation |
+
+📧 **Team Leader Contact:** harshvora1003@gmail.com
+
+📩 Reach out to us via [harshvora1003@gmail.com](mailto:harshvora1003@gmail.com)
+
+Together, let's make fashion circular. ♻️
