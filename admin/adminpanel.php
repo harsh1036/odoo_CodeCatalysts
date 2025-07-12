@@ -2,17 +2,40 @@
 require_once '../auth/session.php';
 require_once '../auth/database.php';
 $user = getCurrentUser();
-if (!$user || $user['role'] !== 'admin') {
-    header('Location: ../index.php');
-    exit();
+// Uncomment these lines for production:
+// if (!$user) {
+//     header('Location: ../auth/login.php');
+//     exit();
+// }
+// if ($user['role'] !== 'admin') {
+//     header('Location: ../landing/index.php');
+//     exit();
+// }
+
+// Handle admin actions
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['item_id'])) {
+    $item_id = $_POST['item_id'];
+    if (isset($_POST['approve'])) {
+        $stmt = $pdo->prepare("UPDATE items SET status = 'Available' WHERE item_id = ?");
+        $stmt->execute([$item_id]);
+    } elseif (isset($_POST['reject'])) {
+        $stmt = $pdo->prepare("UPDATE items SET status = 'Rejected' WHERE item_id = ?");
+        $stmt->execute([$item_id]);
+    } elseif (isset($_POST['remove'])) {
+        $stmt = $pdo->prepare("DELETE FROM items WHERE item_id = ?");
+        $stmt->execute([$item_id]);
+    }
 }
-// Example user data for demo
-$users = [
-    ["name" => "John Doe", "email" => "john@example.com", "role" => "user"],
-    ["name" => "Jane Smith", "email" => "jane@example.com", "role" => "user"],
-    ["name" => "Admin User", "email" => "admin@renewablecloth.com", "role" => "admin"],
-    ["name" => "Alice Brown", "email" => "alice@example.com", "role" => "user"],
-];
+
+// Fetch all items with owner info
+$stmt = $pdo->prepare("SELECT i.*, u.name as owner_name, u.email as owner_email FROM items i JOIN users u ON i.owner_id = u.user_id ORDER BY i.created_at DESC");
+$stmt->execute();
+$all_items = $stmt->fetchAll();
+
+// Fetch all users for management
+$stmt = $pdo->prepare("SELECT * FROM users ORDER BY created_at DESC");
+$stmt->execute();
+$all_users = $stmt->fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -237,28 +260,71 @@ $users = [
         <div class="tab-content" id="adminTabContent">
             <div class="tab-pane fade show active" id="users" role="tabpanel" aria-labelledby="users-tab">
                 <h5 class="mb-4">Manage Users</h5>
-                <?php foreach ($users as $u): ?>
-                <div class="user-card-row">
-                    <div class="user-avatar-big"><i class="fas fa-user"></i></div>
-                    <div class="user-details-box">
-                        <div><strong><?php echo htmlspecialchars($u['name']); ?></strong></div>
-                        <div class="text-muted" style="font-size:0.95rem;"><?php echo htmlspecialchars($u['email']); ?></div>
-                        <div class="mt-2"><span class="badge bg-secondary"><?php echo htmlspecialchars($u['role']); ?></span></div>
-                    </div>
-                    <div class="user-actions-box">
-                        <button class="admin-action-btn">Actions 1</button>
-                        <button class="admin-action-btn">Action 2</button>
-                    </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle bg-white">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Points</th>
+                                <th>Joined</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($all_users as $u): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($u['name']) ?></td>
+                                <td><?= htmlspecialchars($u['email']) ?></td>
+                                <td><span class="badge <?= $u['role']==='admin'?'bg-success':'bg-secondary' ?>"><?= htmlspecialchars($u['role']) ?></span></td>
+                                <td><?= htmlspecialchars($u['points']) ?></td>
+                                <td><?= date('M j, Y', strtotime($u['created_at'])) ?></td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
                 </div>
-                <?php endforeach; ?>
             </div>
             <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
                 <h5>Manage Orders</h5>
                 <p>Here you can manage orders. (Add your order management UI here.)</p>
             </div>
             <div class="tab-pane fade" id="listings" role="tabpanel" aria-labelledby="listings-tab">
-                <h5>Manage Listings</h5>
-                <p>Here you can manage listings. (Add your listing management UI here.)</p>
+                <h5 class="mb-4">Item Moderation</h5>
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle bg-white">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Image</th>
+                                <th>Title</th>
+                                <th>Owner</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($all_items as $item):
+                                $images = json_decode($item['images'], true) ?: [];
+                                $main_image = !empty($images) ? $images[0] : 'https://via.placeholder.com/80x80?text=No+Image';
+                            ?>
+                            <tr>
+                                <td><img src="<?= htmlspecialchars($main_image) ?>" alt="Image" style="width:80px;height:80px;object-fit:cover;border-radius:8px;"></td>
+                                <td><?= htmlspecialchars($item['title']) ?></td>
+                                <td><?= htmlspecialchars($item['owner_name']) ?><br><small><?= htmlspecialchars($item['owner_email']) ?></small></td>
+                                <td><span class="badge <?= $item['status']==='Pending'?'bg-warning':($item['status']==='Available'?'bg-success':'bg-secondary') ?>"><?= htmlspecialchars($item['status']) ?></span></td>
+                                <td>
+                                    <form method="post" class="d-inline">
+                                        <input type="hidden" name="item_id" value="<?= htmlspecialchars($item['item_id']) ?>">
+                                        <button type="submit" name="approve" class="btn btn-success btn-sm">Approve</button>
+                                        <button type="submit" name="reject" class="btn btn-danger btn-sm">Reject</button>
+                                        <button type="submit" name="remove" class="btn btn-outline-danger btn-sm" onclick="return confirm('Remove this item?');">Remove</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

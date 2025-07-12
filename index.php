@@ -287,7 +287,7 @@ function getImages($images_json) {
                 <?php if (!empty($products)): ?>
                     <?php foreach ($products as $product): ?>
                         <div class="col-md-6 col-lg-3">
-                            <div class="card product-card" style="cursor: pointer;" onclick="window.location='product_details.php?id=<?= htmlspecialchars($product['item_id']) ?>'">
+                            <div class="card product-card" style="cursor: pointer;" onclick="window.location='items/view_items.php?id=<?= htmlspecialchars($product['item_id']) ?>'">
                                 <div class="card-body text-center">
                                     <?php $imgs = getImages($product['images']); ?>
                                     <?php if (!empty($imgs)): ?>
@@ -316,7 +316,7 @@ function getImages($images_json) {
             <?php if (!empty($products)): ?>
                 <div class="row mt-4">
                     <div class="col-12 text-center">
-                        <a href="product_details.php" class="btn btn-outline-primary">
+                        <a href="items/view_items.php" class="btn btn-outline-primary">
                             <i class="fas fa-eye me-2"></i>View All Products
                         </a>
                     </div>

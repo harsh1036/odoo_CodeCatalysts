@@ -1,5 +1,5 @@
 <?php
-require_once 'auth/database.php';
+require_once '../auth/database.php';
 
 // Handle search
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
@@ -253,7 +253,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $selected_product) {
 <div class="container main-container">
     <div class="header-bar">
         <div class="d-flex align-items-center">
-            <a href="index.php" class="btn btn-outline-secondary me-3">
+            <a href="../landing/index.php" class="btn btn-outline-secondary me-3">
                 <i class="fas fa-arrow-left me-1"></i>Back to Home
             </a>
             <div class="fs-5 fw-bold">
@@ -269,14 +269,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $selected_product) {
     
     <?= $action_message ?>
     
-    <form class="search-bar mb-4" method="get" action="product_details.php">
+    <form class="search-bar mb-4" method="get" action="items/view_items.php">
         <input type="text" name="search" placeholder="Search items..." value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
         <button class="btn btn-outline-secondary ms-2" type="submit"><i class="fas fa-search"></i></button>
     </form>
     
     <?php if ($selected_product): ?>
     <div class="mb-3">
-        <a href="product_details.php" class="btn btn-outline-primary">
+        <a href="items/view_items.php" class="btn btn-outline-primary">
             <i class="fas fa-arrow-left me-1"></i>Back to All Items
         </a>
     </div>
@@ -426,7 +426,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $selected_product) {
         <div class="previous-listings-title">Available Items:</div>
         <div class="listing-cards">
             <?php foreach ($products as $product): ?>
-                <div class="listing-card" onclick="window.location='product_details.php?id=<?= htmlspecialchars($product['item_id']) ?>'">
+                <div class="listing-card" onclick="window.location='items/view_items.php?id=<?= htmlspecialchars($product['item_id']) ?>'">
                     <?php $imgs = getImages($product['images']); ?>
                     <?php if (!empty($imgs)): ?>
                         <img src="<?= htmlspecialchars($imgs[0]) ?>" alt="Product">
