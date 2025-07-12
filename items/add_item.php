@@ -217,7 +217,7 @@ $conditions = ['New', 'Like New', 'Good', 'Fair', 'Used'];
                     <p class="lead mb-0">Share your sustainable clothing with the community</p>
                 </div>
                 <div class="col-md-4 text-md-end">
-                    <a href="index.php" class="btn btn-light btn-lg">
+                    <a href="../landing/index.php" class="btn btn-light btn-lg">
                         <i class="fas fa-arrow-left me-2"></i>Back to Items
                     </a>
                 </div>

@@ -305,7 +305,7 @@ if (!$user) {
             <div class="intro-title">Sustainable Fashion for a Better Tomorrow</div>
             <div class="intro-desc">Discover eco-friendly clothing, swap your wardrobe, and join the movement for a greener planet.</div>
             <div class="cta-buttons">
-                <a href="../items/index.php" class="cta-btn cta-main">Start Swapping</a>
+                <a href="../items/view_items.php" class="cta-btn cta-main">Start Swapping</a>
                 <a href="../items/index.php" class="cta-btn cta-outline">Browse Items</a>
             </div>
         </div>
