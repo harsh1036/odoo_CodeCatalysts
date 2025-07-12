@@ -2,6 +2,10 @@
 require_once '../auth/session.php';
 require_once '../auth/database.php';
 $user = getCurrentUser();
+if (!$user) {
+    header("Location: ../auth/login.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -364,7 +368,7 @@ $user = getCurrentUser();
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <div class="products-title">Product Listings</div>
                 <?php if ($user): ?>
-                    <a href="../items/add_items.php" class="btn btn-success"><i class="fas fa-plus me-1"></i>Add Item</a>
+                    <a href="../items/add_item.php" class="btn btn-success"><i class="fas fa-plus me-1"></i>Add Item</a>
                 <?php endif; ?>
             </div>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
